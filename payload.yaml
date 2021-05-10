@@ -1,0 +1,122 @@
+informations:
+  api_token: "Token 8dd241a43b068b86d3435131cbbabf17495d96ff"
+  paste_name: ""
+  inicial_period: "" #preencher com month, deixe sem nada caso tenha alguma recorrência
+  final_period: ""
+  is_recurrence: "True" #preencher com True caso seja uma consulta recorrente
+  recurrence_type: "" 
+
+#tire a # da funcionalidade que você deseja
+#caso tenha alguma dúvida sobre o preenchimento de algum campo consulte a docuementação da api
+functions: 
+    flows: 
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        name: ""
+        type:  ""
+        archived: ""
+        labels: ""
+        expires: ""
+        runs: ""
+        results: ""
+        parent_refs: ""
+        created_on: ""
+        modified_on: ""
+
+    flow_starts:
+      spreadsheet_name: ""
+      params: 
+        uuid: ""
+        flow: ""
+        groups: ""
+        restart_participants: ""
+        status: ""
+        params: ""
+        created_on: ""
+        modified_on: ""
+    
+    fields:
+      spreadsheet_name: ""
+      params:
+        key: ""
+        label: ""
+        value_type: ""
+    
+    contacts:
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        name: ""
+        language: ""
+        urns: ""
+        groups: ""
+        fields: ""
+        blocked: ""
+        stopped: ""
+        created_on: ""
+        modified_on: ""
+        last_seen_on: ""
+    
+    classifiers:
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        name: ""
+        intents: ""
+        type: ""
+        created_on: ""
+    
+    channel_evetns:
+      spreadsheet_name: ""
+      params: 
+        id: ""
+        channel: ""
+        type: ""
+        contact: ""
+        extra: ""
+        occurred_on: ""
+        created_on: ""
+    
+    channels:
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        name: ""
+        address: ""
+        country: ""
+        last_seen: ""
+        created_on: ""
+    
+    campaigns:
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        name: ""
+        archived: "False"
+        group: ""
+        created_on:  ""
+    
+    campaign_events:
+      spreadsheet_name: ""
+      params:
+        uuid: ""
+        campaign: ""
+        relative_to: ""
+        offset: ""
+        unit: ""
+        delivery_hour: ""
+        message: ""
+        flow: ""
+        created_on: ""
+    
+    flow_runs:
+      spreadsheet_name: ""
+      
+    contacts_stats:
+    channel_stats:
+    runs:
+    messages:
+    labels:
+    groups:
+    globals:
