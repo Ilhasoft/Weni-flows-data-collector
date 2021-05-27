@@ -10,7 +10,7 @@ informations:
 #caso tenha alguma dúvida sobre o preenchimento de algum campo consulte a docuementação da api
 functions: 
     flows: 
-      spreadsheet_name: ""
+      document_name: "flows"
       params:
         uuid: ""
         name: ""
@@ -25,7 +25,7 @@ functions:
         modified_on: ""
 
     flow_starts:
-      spreadsheet_name: ""
+      document_name: "flow_starts"
       params: 
         uuid: ""
         flow: ""
@@ -37,14 +37,14 @@ functions:
         modified_on: ""
     
     fields:
-      spreadsheet_name: ""
+      document_name: "fields"
       params:
         key: ""
         label: ""
         value_type: ""
     
     contacts:
-      spreadsheet_name: ""
+      document_name: "contacts"
       params:
         uuid: ""
         name: ""
@@ -59,7 +59,7 @@ functions:
         last_seen_on: ""
     
     classifiers:
-      spreadsheet_name: ""
+      document_name: "classifiers"
       params:
         uuid: ""
         name: ""
@@ -67,8 +67,8 @@ functions:
         type: ""
         created_on: ""
     
-    channel_evetns:
-      spreadsheet_name: ""
+    channel_events:
+      document_name: "channel_events"
       params: 
         id: ""
         channel: ""
@@ -79,7 +79,7 @@ functions:
         created_on: ""
     
     channels:
-      spreadsheet_name: ""
+      document_name: "channels"
       params:
         uuid: ""
         name: ""
@@ -89,7 +89,7 @@ functions:
         created_on: ""
     
     campaigns:
-      spreadsheet_name: ""
+      document_name: "campaigns"
       params:
         uuid: ""
         name: ""
@@ -98,7 +98,7 @@ functions:
         created_on:  ""
     
     campaign_events:
-      spreadsheet_name: ""
+      document_name: "campaign_events"
       params:
         uuid: ""
         campaign: ""
@@ -109,14 +109,14 @@ functions:
         message: ""
         flow: ""
         created_on: ""
-    
-    flow_runs:
-      spreadsheet_name: ""
+
+    #flow_runs:
+      #document_name: ""
       
-    contacts_stats:
-    channel_stats:
-    runs:
-    messages:
-    labels:
-    groups:
-    globals:
+    #contacts_stats:
+    #channel_stats:
+    #runs:
+    #messages:
+    #labels:
+    #groups:
+    #globals:
