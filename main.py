@@ -70,24 +70,34 @@ def post_in_google_sperasheets():
 
 
 if __name__ == '__main__':
-    try:
-        """
-            busque pela data do .yaml e insira o período entre elas como
-            base_path (lembrando de verificar e calcular as datas iniciais
-            e finais de acordo com o período caso seja recorrente)
-        """
-        base_path = "teste"
-        json_path = f"{base_path}/json/"
-        xlsx_path = f"{base_path}/xlsx/"
-
-        os.mkdir(base_path)
-        os.mkdir(json_path)
-        os.mkdir(xlsx_path)
-
-    except FileExistsError:
-        pass
-
     with open("payload.yaml", 'r') as payload:
+        is_recurrence = payload['informations']['is_recurrence']
+        if is_recurrence is True:
+            # logica de recorrencia
+            # inicial_date e final_date
+        
+        else:
+            inicial_date = payload['informations']['inicial_date']
+            final_date = payload['informations']['final_date']
+            format_date(inicial_date, final_date)
+
+        try:
+            """
+                busque pela data do .yaml e insira o período entre elas como
+                base_path (lembrando de verificar e calcular as datas iniciais
+                e finais de acordo com o período caso seja recorrente)
+            """
+            base_path = f"{inicial_date}_to_{final_date}"
+            json_path = f"{base_path}/json/"
+            xlsx_path = f"{base_path}/xlsx/"
+
+            os.mkdir(base_path)
+            os.mkdir(json_path)
+            os.mkdir(xlsx_path)
+
+        except FileExistsError:
+            pass
+
         try:
             payload_doc = yaml.load(payload, Loader=yaml.FullLoader)
             authorization = payload_doc['informations']['api_token']
