@@ -3,13 +3,12 @@ import sys, os
 import requests
 import yaml, json
 import pandas as pd
+from datetime import datetime
 
 
 def format_date(inicial_date, final_date):
-    """
-        Aqui será formatada a data de acordo com o 
-        padrão que a url do push aceita
-    """
+    inicial_date = inicial_date + "T00:00:01.0000"
+    final_date = final_date + "T23:59:59.0000"
     pass
 
 
@@ -70,24 +69,55 @@ def post_in_google_sperasheets():
 
 
 if __name__ == '__main__':
-    try:
-        """
-            busque pela data do .yaml e insira o período entre elas como
-            base_path (lembrando de verificar e calcular as datas iniciais
-            e finais de acordo com o período caso seja recorrente)
-        """
-        base_path = "teste"
-        json_path = f"{base_path}/json/"
-        xlsx_path = f"{base_path}/xlsx/"
-
-        os.mkdir(base_path)
-        os.mkdir(json_path)
-        os.mkdir(xlsx_path)
-
-    except FileExistsError:
-        pass
-
     with open("payload.yaml", 'r') as payload:
+        is_recurrence = payload_doc['informations']['is_recurrence']
+        recurrence_type = payload_doc['informations']['recurrence_type']
+        if is_recurrence is True:
+            if recurrence_type = "D":
+                now = datetime.now()
+                inicial_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year) + "T00:00:01.0000"
+                final_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year) + "T23:59:59.0000"
+
+            elif recurrence_type = "M":
+                now = datetime.now()
+                if now.month = 1:
+                    inicial_date = str(now.day) + "-" + str(12) + "-" + str(now.year - 1) + "T00:00:01.0000"
+                    final_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year) + "T23:59:59.0000"
+                else:
+                    inicial_date = str(now.day) + "-" + str(now.month - 1) + "-" + str(now.year) + "T00:00:01.0000"
+                    final_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year) + "T23:59:59.0000"
+                        
+
+            elif recurrence_type = "Y":
+                now = datetime.now()
+                inicial_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year - 1) + "T00:00:01.0000"
+                final_date = str(now.day) + "-" + str(now.month) + "-" + str(now.year) + "T23:59:59.0000"
+
+            else:
+                pass
+        
+        else:
+            inicial_date = payload_doc['informations']['inicial_date']
+            final_date = payload_doc['informations']['final_date']
+            format_date(inicial_date, final_date)
+
+        try:
+            """
+                busque pela data do .yaml e insira o período entre elas como
+                base_path (lembrando de verificar e calcular as datas iniciais
+                e finais de acordo com o período caso seja recorrente)
+            """
+            base_path = f"{inicial_date}_to_{final_date}"
+            json_path = f"{base_path}/json/"
+            xlsx_path = f"{base_path}/xlsx/"
+
+            os.mkdir(base_path)
+            os.mkdir(json_path)
+            os.mkdir(xlsx_path)
+
+        except FileExistsError:
+            pass
+
         try:
             payload_doc = yaml.load(payload, Loader=yaml.FullLoader)
             authorization = payload_doc['informations']['api_token']
