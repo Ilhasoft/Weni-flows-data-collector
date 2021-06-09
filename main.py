@@ -40,7 +40,7 @@ def catch_urls(service_name):
     return url
 
 
-def get_data(endpoint, authorization, document_name):
+def get_data(endpoint, authorization, document_name, json_path, xlsx_path):
     response = requests.get(endpoint, headers={"authorization": authorization})
     json_response = response.json()
 
@@ -49,14 +49,14 @@ def get_data(endpoint, authorization, document_name):
         for data in json_response['results']:
             sheet_data.append(data)
         df = pd.DataFrame(sheet_data)
-        writer = pd.ExcelWriter(f'teste/xlsx/{document_name}.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter(f'{xlsx_path}/{document_name}.xlsx', engine='xlsxwriter')
         df.to_excel(writer, index=False)
         writer.save()
 
     except KeyError:
         print("cannot find any response!")
 
-    with open(f"teste/json/{document_name}.json", 'w') as json_doucument:
+    with open(f"{json_path}{document_name}.json", 'w') as json_doucument:
         json.dump(json_response, json_doucument)
 
 
@@ -122,6 +122,40 @@ if __name__ == '__main__':
             payload_doc = yaml.load(payload, Loader=yaml.FullLoader)
             authorization = payload_doc['informations']['api_token']
 
+            inicial_date = None
+            final_date = None
+
+            is_recurrence = payload_doc["informations"]["is_recurrence"]
+            if is_recurrence is True:
+                # logica de recorrencia
+                # inicial_date e final_date
+                inicial_date = "xx-xx-xxxx"
+                final_date = "xx-xx-xxxx"
+            
+            else:
+                # inicial_date = payload['informations']['inicial_date']
+                # final_date = payload['informations']['final_date']
+                # format_date(inicial_date, final_date)
+                inicial_date = "xx-xx-xxxx"
+                final_date = "xx-xx-xxxx"
+
+            try:
+                """
+                    busque pela data do .yaml e insira o período entre elas como
+                    base_path (lembrando de verificar e calcular as datas iniciais
+                    e finais de acordo com o período caso seja recorrente)
+                """
+                base_path = f"{inicial_date}_to_{final_date}/"
+                json_path = f"{base_path}/json/"
+                xlsx_path = f"{base_path}/xlsx/"
+
+                os.mkdir(base_path)
+                os.mkdir(json_path)
+                os.mkdir(xlsx_path)
+
+            except FileExistsError:
+                print("The directory aleardy exist!")
+
             for service in payload_doc['functions']:
                 url = catch_urls(service)
                 params = "?"
@@ -134,13 +168,14 @@ if __name__ == '__main__':
                         else:
                             params += "&" + param + "=" + param_value
 
-                except KeyError:
-                    print("internal problem")
+                except KeyError as exc:
+                    print(exc)
+
                 document_name = payload_doc['functions'][service]["document_name"]
 
                 # concatenar com a data inicial e a data final correspondente ao período
                 endpoint = url + params
-                get_data(endpoint, authorization, document_name)
+                get_data(endpoint, authorization, document_name, json_path, xlsx_path)
 
         except yaml.YAMLError as exc:
             print(exc)
