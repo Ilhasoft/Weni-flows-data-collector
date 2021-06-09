@@ -1,9 +1,10 @@
 informations:
   api_token: "Token 8dd241a43b068b86d3435131cbbabf17495d96ff"
-  inicial_date: "" #preencher com month, deixe sem nada caso tenha alguma recorrência
-  final_date: ""
+  paste_name: ""
+  inicial_period: "" #preencher com month, deixe sem nada caso tenha alguma recorrência Ex: 28-05-2021
+  final_period: ""
   is_recurrence: "True" #preencher com True caso seja uma consulta recorrente
-  recurrence_period: "" 
+  recurrence_type: "" # M - Mensal; D - Diario; Y - Anual 
 
 #tire a # da funcionalidade que você deseja
 #caso tenha alguma dúvida sobre o preenchimento de algum campo consulte a docuementação da api
@@ -12,7 +13,7 @@ functions:
       document_name: "flows"
       params:
         uuid: ""
-        name: ""
+        name: "Fhelyp"
         type:  ""
         archived: ""
         labels: ""
